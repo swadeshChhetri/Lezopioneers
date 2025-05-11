@@ -1,5 +1,5 @@
 'use client'
-import { useState } from "react";
+// import { useState } from "react";
 import { Users, MessageSquare, Calendar, Bell } from "lucide-react";
 // import { Users, Image, Calendar } from 'lucide-react';
 import { MapPin } from 'lucide-react';
@@ -104,8 +104,8 @@ const mentors = [
 
 
 export default function Home() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  // const [menuOpen, setMenuOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
   // const [hoveredContent, setHoveredContent] = useState("");
 
   return (
