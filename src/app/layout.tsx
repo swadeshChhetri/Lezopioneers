@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Roboto, Dancing_Script } from "next/font/google";
+import { Geist, Geist_Mono, Roboto,  DM_Sans } from "next/font/google";
 import "./globals.css";
 
 // Load fonts
@@ -20,7 +20,7 @@ const roboto = Roboto({
   display: "swap",
 });
 
-const dancing = Dancing_Script({
+const dmsans =  DM_Sans({
   subsets: ["latin"],
   variable: "--font-dancing",
   weight: ["400", "700"], // optional
@@ -39,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${roboto.variable } ${dancing.variable} antialiased `}
+        className={`${geistSans.variable} ${geistMono.variable} ${roboto.variable } ${dmsans.variable} antialiased `}
       >
         {children}
       </body>
