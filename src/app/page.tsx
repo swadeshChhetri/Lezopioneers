@@ -1,5 +1,5 @@
 'use client'
-// import { useState } from "react";
+
 import { Users, MessageSquare, Calendar, Bell, Search } from "lucide-react";
 // import { Users, Image, Calendar } from 'lucide-react';
 import { MapPin } from 'lucide-react';
@@ -9,23 +9,27 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
-import { useState } from 'react';
+import { useState} from 'react';
 import ScrollUpReveal from "@/components/ScrollUpRevel";
-// import { useRouter } from 'next/navigation';
-// import ScrollUpReveal from './../components/ScrollUpRevel';
+import Modal from "@/components/Model";
+import JoinForm from "@/components/JoinLezo";
+import CreateEventForm from "../components/CreateEvent";
+import MentorBookingForm from "@/components/MentorBooking";
 
 
 
-interface Mentor {
-  initials: string;
-  name: string;
-  title: string;
-  tags: string[];
-  image: string;
-  rating: number;
-  reviews: number;
-  price: number;
-}
+
+
+// interface Mentor {
+//   initials: string;
+//   name: string;
+//   title: string;
+//   tags: string[];
+//   image: string;
+//   rating: number;
+//   reviews: number;
+//   price: number;
+// }
 
 interface Event {
   tags: string[];
@@ -202,26 +206,38 @@ const mentors = [
 
 export default function Home() {
 
+  const [isJoinModalOpen, setJoinModalOpen] = useState(false);
+  const [isCreateEventModalOpen, setCreateEventModalOpen] = useState(false);
+  const [isMentorBookingModalOpen, setMentorBookingModalOpen] = useState(false);
+  // const [isViewProfileModalOpen, setViewProfileModalOpen] = useState(false);
+
+
   // Connect with investors & founders
-  const [showModal, setShowModal] = useState(false);
-  const [role, setRole] = useState('founder');
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Send form data via fetch/Axios or router.push
-    alert('Form submitted!'); // Replace with actual logic
-  };
+  // const [showModal, setShowModal] = useState(false);
+  // const [role, setRole] = useState('founder');
+  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   // Send form data via fetch/Axios or router.push
+  //   alert('Form submitted!'); // Replace with actual logic
+  // };
 
-
+  // useEffect(() => {
+  //   if (showModal) {
+  //     document.body.classList.add("overflow-hidden");
+  //   } else {
+  //     document.body.classList.remove("overflow-hidden");
+  //   }
+  // }, [showModal]);
 
   // State to track selected event
 
-  const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    date: '',
-    location: '',
-    tags: '',
-  });
+  // const [formData, setFormData] = useState({
+  //   title: '',
+  //   description: '',
+  //   date: '',
+  //   location: '',
+  //   tags: '',
+  // });
 
   const closeModal = () => {
     setSelectedEvent(null); // Close the modal
@@ -230,28 +246,28 @@ export default function Home() {
 
 
   //  Create Events
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const openModal = () => setIsModalOpen(true); // Open the modal
-  const closeModal1 = () => setIsModalOpen(false); // Close the modal
-  const handleSubmit1 = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Event Created:', formData);
-    setIsModalOpen(false); // Close modal after submission
-    setFormData({
-      title: '',
-      description: '',
-      date: '',
-      location: '',
-      tags: '',
-    }); // Reset form data
-  };
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+  // const openModal = () => setIsModalOpen(true); // Open the modal
+  // const closeModal1 = () => setIsModalOpen(false); // Close the modal
+  // const handleSubmit1 = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   console.log('Event Created:', formData);
+  //   setIsModalOpen(false); // Close modal after submission
+  //   setFormData({
+  //     title: '',
+  //     description: '',
+  //     date: '',
+  //     location: '',
+  //     tags: '',
+  //   }); // Reset form data
+  // };
+  // const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  //   const { name, value } = e.target;
+  //   setFormData((prev) => ({
+  //     ...prev,
+  //     [name]: value,
+  //   }));
+  // };
 
 
   //  Featured Events Details
@@ -262,70 +278,72 @@ export default function Home() {
 
 
   // Premium Mentorship
-  const openModal2 = (mentor: Mentor) => {
-    setSelectedMentor(mentor);
-    setIsModalOpen2(true);
-  };
-  const closeModal2 = () => {
-    setIsModalOpen2(false);
-    setSelectedMentor(null);
-  };
+  // const openModal2 = (mentor: Mentor) => {
+  //   setSelectedMentor(mentor);
+  //   setIsModalOpen2(true);
+  // };
+  // const closeModal2 = () => {
+  //   setIsModalOpen2(false);
+  //   setSelectedMentor(null);
+  // };
 
 
   //Booking session
-  const [isModalOpen2, setIsModalOpen2] = useState(false);
-  const [selectedMentor, setSelectedMentor] = useState<Mentor | null>(null);
-  const [formData2, setFormData2] = useState({
-    name: '',
-    email: '',
-    date: '',
-    time: '',
-    message: '',
-  });
+  // const [isModalOpen2, setIsModalOpen2] = useState(false);
+  // const [selectedMentor, setSelectedMentor] = useState<Mentor | null>(null);
+  // const [formData2, setFormData2] = useState({
+  //   name: '',
+  //   email: '',
+  //   date: '',
+  //   time: '',
+  //   message: '',
+  // });
 
-  const handleChange2 = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData2((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  // const handleChange2 = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  //   const { name, value } = e.target;
+  //   setFormData2((prev) => ({
+  //     ...prev,
+  //     [name]: value,
+  //   }));
+  // };
 
-  const handleSubmit2 = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Booking Submitted:', formData);
-    setIsModalOpen(false); // Close the modal after submission
-  };
+  // const handleSubmit2 = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   console.log('Booking Submitted:', formData);
+  //   setIsModalOpen(false); // Close the modal after submission
+  // };
 
 
   // Modal for Mentor Profile
-  const [isModalOpen3, setIsModalOpen3] = useState(false);
-  const [selectedMentor3, setSelectedMentor3] = useState<Mentor | null>(null);
+  // const [isModalOpen3, setIsModalOpen3] = useState(false);
+  // const [selectedMentor3, setSelectedMentor3] = useState<Mentor | null>(null);
 
-  const openModal3 = (mentor: Mentor) => {
-    setSelectedMentor3(mentor);
-    setIsModalOpen3(true);
-  };
+  // const openModal3 = (mentor: Mentor) => {
+  //   setSelectedMentor3(mentor);
+  //   setIsModalOpen3(true);
+  // };
 
-  const closeModal3 = () => {
-    setIsModalOpen3(false);
-    setSelectedMentor3(null);
-  };
+  // const closeModal3 = () => {
+  //   setIsModalOpen3(false);
+  //   setSelectedMentor3(null);
+  // };
+  const [formData, setFormData] = useState({
+  name: '',
+  email: '',
+  date: '',
+  time: '',
+  message: '',
+});
 
+const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  setFormData({ ...formData, [e.target.name]: e.target.value });
+};
 
-  // const revealElements = document.querySelectorAll('[data-reveal]');
+const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  // submit logic
+};
 
-  // const observer = new IntersectionObserver((entries) => {
-  //   entries.forEach(entry => {
-  //     if (entry.isIntersecting) {
-  //       entry.target.classList.remove('opacity-0', 'translate-y-6');
-  //       entry.target.classList.add('opacity-100', 'translate-y-0');
-  //       observer.unobserve(entry.target); // Animate only once
-  //     }
-  //   });
-  // }, { threshold: 0.1 });
-
-  // revealElements.forEach(el => observer.observe(el));
 
 
 
@@ -393,117 +411,16 @@ export default function Home() {
 
                 {/* CTA Buttons */}
                 <div className="mt-20 flex gap-4 flex-wrap">
-                  <button className="button-bg-color hover:bg-color text-white font-medium px-6 py-3 rounded-md text-xl shadow" onClick={() => setShowModal(true)}>
+                  <button className="button-bg-color hover:bg-color text-white font-medium px-6 py-3 rounded-md text-xl shadow" onClick={() => setJoinModalOpen(true)}>
                     Join LezoPioneers
                   </button>
+
                   <button className="border border-gray-300 text-black px-6 py-2 rounded-md text-xl hover:bg-gray-100">
                     Learn More
                   </button>
                 </div>
 
-                {showModal && (
-                  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 px-4">
-                    <div className="bg-white rounded-lg shadow-lg max-w-2xl w-full p-6 overflow-y-auto max-h-[90vh] relative">
-                      <button
-                        onClick={() => setShowModal(false)}
-                        className="absolute top-3 right-3 text-gray-500 hover:text-black"
-                      >
-                        ✕
-                      </button>
-                      <h1 className="text-2xl font-semibold mb-6">Join Our Community</h1>
-                      <form onSubmit={handleSubmit} className="space-y-6">
 
-                        {/* Full Name */}
-                        <div>
-                          <label className="block text-sm font-medium">Full Name</label>
-                          <input type="text" required className="w-full mt-1 p-2 border rounded-md" />
-                        </div>
-
-                        {/* Email */}
-                        <div>
-                          <label className="block text-sm font-medium">Email Address</label>
-                          <input type="email" required className="w-full mt-1 p-2 border rounded-md" />
-                        </div>
-
-                        {/* Role */}
-                        <div>
-                          <label className="block text-sm font-medium">Role</label>
-                          <select
-                            value={role}
-                            onChange={(e) => setRole(e.target.value)}
-                            className="w-full mt-1 p-2 border rounded-md"
-                          >
-                            <option value="founder">Founder</option>
-                            <option value="investor">Investor</option>
-                            <option value="mentor">Mentor</option>
-                            <option value="other">Other</option>
-                          </select>
-                        </div>
-
-                        {/* Founder Fields */}
-                        {role === 'founder' && (
-                          <>
-                            <div>
-                              <label className="block text-sm font-medium">Startup Name</label>
-                              <input type="text" className="w-full mt-1 p-2 border rounded-md" />
-                            </div>
-                            <div>
-                              <label className="block text-sm font-medium">Startup Stage</label>
-                              <select className="w-full mt-1 p-2 border rounded-md">
-                                <option>Idea</option>
-                                <option>MVP</option>
-                                <option>Pre-seed</option>
-                                <option>Seed</option>
-                                <option>Series A</option>
-                              </select>
-                            </div>
-                          </>
-                        )}
-
-                        {/* Investor Fields */}
-                        {role === 'investor' && (
-                          <>
-                            <div>
-                              <label className="block text-sm font-medium">Investor Type</label>
-                              <select className="w-full mt-1 p-2 border rounded-md">
-                                <option>Angel</option>
-                                <option>VC</option>
-                                <option>Syndicate</option>
-                              </select>
-                            </div>
-                            <div>
-                              <label className="block text-sm font-medium">Industries of Interest</label>
-                              <input type="text" placeholder="e.g. Healthtech, Fintech" className="w-full mt-1 p-2 border rounded-md" />
-                            </div>
-                          </>
-                        )}
-
-                        {/* Common Fields */}
-                        <div>
-                          <label className="block text-sm font-medium">Location</label>
-                          <input type="text" placeholder="City, Country" className="w-full mt-1 p-2 border rounded-md" />
-                        </div>
-                        <div>
-                          <label className="block text-sm font-medium">LinkedIn or Website</label>
-                          <input type="url" className="w-full mt-1 p-2 border rounded-md" />
-                        </div>
-                        <div>
-                          <label className="block text-sm font-medium">Short Bio or Intro</label>
-                          <textarea className="w-full mt-1 p-2 border rounded-md" rows={4}></textarea>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <input type="checkbox" required />
-                          <label className="text-sm">I agree to the Terms and Privacy Policy</label>
-                        </div>
-
-                        {/* Submit */}
-                        <button type="submit" className="bg-purple-600 text-white px-6 py-2 rounded-md hover:bg-purple-700">
-                          Join Now
-                        </button>
-                      </form>
-                    </div>
-                  </div>
-                )}
               </div>
               <div className="w-full md:w-1/2 h-64 md:h-auto">
                 <Image
@@ -515,9 +432,15 @@ export default function Home() {
                 />
               </div>
             </div>
-          </section>
-        </ScrollUpReveal>
 
+          </section>
+
+        </ScrollUpReveal>
+        {isJoinModalOpen && (
+          <Modal onClose={() => setJoinModalOpen(false)}>
+            <JoinForm onClose={() => setJoinModalOpen(false)} />
+          </Modal>
+        )}
 
         {/* Feature Cards */}
         <ScrollUpReveal>
@@ -571,14 +494,14 @@ export default function Home() {
                   <button className="border border-gray-300 px-4 py-2 rounded-md text-xl hover:bg-gray-100 text-black">
                     View All
                   </button>
-                  <button className="button-bg-color hover:bg-color text-white px-4 py-2 rounded-md text-xl" onClick={openModal}>
+                  <button className="button-bg-color hover:bg-color text-white px-4 py-2 rounded-md text-xl" onClick={() => setCreateEventModalOpen(true)}>
                     + Create Event
                   </button>
                 </div>
 
 
                 {/* Modal for Create Event Form */}
-                {isModalOpen && (
+                {/* {isModalOpen && (
                   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 px-4">
                     <div className="bg-white rounded-lg shadow-lg max-w-2xl w-full p-6 overflow-y-auto max-h-[90vh] relative">
                       <button
@@ -660,7 +583,7 @@ export default function Home() {
                       </form>
                     </div>
                   </div>
-                )}
+                )} */}
               </div>
 
 
@@ -781,10 +704,15 @@ export default function Home() {
             </div>
           </section>
         </ScrollUpReveal>
+        {isCreateEventModalOpen && (
+          <Modal onClose={() => setCreateEventModalOpen(false)}>
+            <CreateEventForm onClose={() => setCreateEventModalOpen(false)} />
+          </Modal>
+        )}
 
         {/* Letest from the community */}
         <ScrollUpReveal>
-          <section className="mt-36">
+          <section className="mt-12 p-28">
             <div className="">
               {/* Header */}
               <h2 className="text-5xl font-bold text-center text-gray-900 mb-6">
@@ -951,10 +879,10 @@ export default function Home() {
                     <p className="text-lg text-gray-500 mb-2">{mentor.reviews} mentee reviews</p>
                     <p className="text-lg font-semibold text-color mb-4">${mentor.price} <span className="text-sm font-normal text-gray-500">per session</span></p>
 
-                    <button className="button-bg-color hover:bg-color text-white text-xl px-4 py-2 rounded-md w-full mb-2" onClick={() => openModal2(mentor)}>
+                    <button className="button-bg-color hover:bg-color text-white text-xl px-4 py-2 rounded-md w-full mb-2" onClick={() => setMentorBookingModalOpen(true)}>
                       Book Session
                     </button>
-                    <button className="text-xl border border-gray-200 text-gray-700 py-2 rounded-md w-full hover:bg-gray-50" onClick={() => openModal3(mentor)} >
+                    <button className="text-xl border border-gray-200 text-gray-700 py-2 rounded-md w-full hover:bg-gray-50" >
                       View Profile
                     </button>
 
@@ -977,90 +905,8 @@ export default function Home() {
               {/* </div> */}
 
               {/* Modal for Booking Session */}
-              {isModalOpen2 && selectedMentor && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 px-4">
-                  <div className="bg-white rounded-lg shadow-lg max-w-lg w-full p-6 overflow-y-auto relative">
-                    <button
-                      onClick={closeModal2}
-                      className="absolute top-3 right-3 text-gray-500 hover:text-black"
-                    >
-                      ✕
-                    </button>
 
-                    <h2 className="text-2xl font-semibold mb-6">Book a Session with {selectedMentor.name}</h2>
-
-                    <form onSubmit={handleSubmit2} className="space-y-6">
-                      <div>
-                        <label className="block text-sm font-medium">Your Name</label>
-                        <input
-                          type="text"
-                          name="name"
-                          value={formData2.name}
-                          onChange={handleChange2}
-                          required
-                          className="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-blue-300"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium">Your Email</label>
-                        <input
-                          type="email"
-                          name="email"
-                          value={formData2.email}
-                          onChange={handleChange2}
-                          required
-                          className="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-blue-300"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium">Session Date</label>
-                        <input
-                          type="date"
-                          name="date"
-                          value={formData2.date}
-                          onChange={handleChange2}
-                          required
-                          className="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-blue-300"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium">Session Time</label>
-                        <input
-                          type="time"
-                          name="time"
-                          value={formData2.time}
-                          onChange={handleChange2}
-                          required
-                          className="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-blue-300"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium">Message (Optional)</label>
-                        <textarea
-                          name="message"
-                          value={formData2.message}
-                          onChange={handleChange2}
-                          className="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-blue-300"
-                          rows={4}
-                        />
-                      </div>
-
-                      <button
-                        type="submit"
-                        className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700"
-                      >
-                        Book Session
-                      </button>
-                    </form>
-                  </div>
-                </div>
-              )}
-
-              {/* Modal for Mentor Profile */}
+              {/* Modal for Mentor Profile
               {isModalOpen3 && selectedMentor3 && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 px-4">
                   <div className="bg-white rounded-lg shadow-lg max-w-lg w-full p-6 overflow-y-auto relative">
@@ -1077,7 +923,7 @@ export default function Home() {
 
                     <div className="text-gray-700 mb-6">
                       <h3 className="text-lg font-semibold">Bio:</h3>
-                      {/* <p>{selectedMentor3.bio}</p> */}
+                      {/* <p>{selectedMentor3.bio}</p> *
                     </div>
 
                     <div className="flex gap-4 mb-6">
@@ -1105,7 +951,7 @@ export default function Home() {
                     </div>\
                   </div>
                 </div>
-              )}
+              )} */}
 
               {/* Explore More */}
               <div className="mt-10">
@@ -1116,6 +962,18 @@ export default function Home() {
             </div>
           </section>
         </ScrollUpReveal>
+        {isMentorBookingModalOpen && (
+          <Modal onClose={() => setMentorBookingModalOpen(false)}>
+            <MentorBookingForm
+              mentorName="Rohan" // or a variable like selectedMentor.name
+              formData={formData}
+              onChange={handleInputChange}
+              onSubmit={handleFormSubmit}
+              onClose={() => setMentorBookingModalOpen(false)}
+            />
+          </Modal>
+        )}
+
       </main>
 
       <footer className="bg-gradient-to-r from-[#5162c3] via-[#17367a] to-[#142967] text-black mt-36 px-4">

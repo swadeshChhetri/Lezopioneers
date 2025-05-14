@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Roboto,  DM_Sans } from "next/font/google";
 import "./globals.css";
+import { ModalProvider} from "@/context/ModelContext";
+
 
 // Load fonts
 const geistSans = Geist({
@@ -41,7 +43,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${roboto.variable } ${dmsans.variable} antialiased `}
       >
-        {children}
+       <ModalProvider>{children}</ModalProvider>
       </body>
     </html>
   );
